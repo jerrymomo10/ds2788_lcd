@@ -16,9 +16,9 @@ PORT=PORT=/dev/usb/ttyUSB0
 HFUSE=0xc9
 LFUSE=0x3f
 
-CSR=ds2788_lcd.c ds2788.c lcd.c  #添加或者删除C源文件
+CSR=ds2788_lcd.c ds2788.c lcd.c key.c  #添加或者删除C源文件
 CSR1=
-OBJ=ds2788_lcd.o ds2788.o lcd.o  #添加或者删除o源文件
+OBJ=ds2788_lcd.o ds2788.o lcd.o key.o #添加或者删除o源文件
 OBJ1=
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

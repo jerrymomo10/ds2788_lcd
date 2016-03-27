@@ -74,11 +74,11 @@ float ds_get_temperature(void)
 	ds_write_byte(CMD_ONEWIRE_SKIP_ROM);
 	ds_write_byte(CMD_ONEWIRE_READ);
 	ds_write_byte(CMD_ADDR_TEMP);
-	uint16_t msb =ds_read_byte();
-	uint16_t lsb =ds_read_byte();
-	uint16_t t = (msb<<8)|lsb;
-	 temperature=(float)t/32*0.125;
-	 return(temperature);
+	int16_t msb =ds_read_byte();
+	int16_t lsb =ds_read_byte();
+	int16_t t = (msb<<8)|lsb;
+	temperature=(float)t/4;
+	return(temperature);
 }
 //return volt v
 float ds_get_volt(void)

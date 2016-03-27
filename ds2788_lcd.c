@@ -12,18 +12,24 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "lcd.h"
+#include "key.h"
 #include "ds2788.h"
+uchar mode = 0;
+uchar yes = 0;
 char volt[50];
 char current[50];
 char temperature[50];
-char accrmulated[50];
+char percent[50];
 void characters_init();
+char res[50]="0000 OM";
 void update();
+void mode_pro();
 int main()
 {
 	characters_init();
 	PORT_INIT();
 	LCD_INIT();
+	init_key();
 	//设定mah 2580 为3000mah 4b00 为6000
 	/*while(!ds_reset());
 	ds_write_byte(CMD_ONEWIRE_SKIP_ROM);
@@ -32,19 +38,38 @@ int main()
 	ds_write_byte(0X4b);
 	ds_write_byte(0X00);*/
 	int count = 5; 
+	char key;
 	while(1)
 	{
+		key = get_key();
+		if(key==1)mode%=3;
 		if(count==0){count=4;LCD_CLEAR();}
 		count--;
 		update();
-		DISPLAY(0,0,volt);
-		DISPLAY(0,8,current);
-		DISPLAY(1,0,temperature);
-		DISPLAY(1,8,accrmulated);
+		mode_pro();
 		_delay_ms(400);
 	}
 
 }
+void mode_pro()
+{
+	if(mode==0)
+	{
+		DISPLAY(0,0,volt); 
+		DISPLAY(0,8,current);
+		DISPLAY(1,0,temperature);
+		DISPLAY(1,8,percent);	
+	}
+	if(mode==1)
+	{
+		DISPLAY(0,0,res);
+		LCD_WR_COM(0x02);
+		LCD_WR_COM(0x06);
+
+	}
+	
+}
+
 void update()
 {
 	float tem = ds_get_temperature();
@@ -54,7 +79,7 @@ void update()
 	sprintf(temperature,"%.1f C",tem);
 	sprintf(volt,"%.3f V",vol);
 	sprintf(current,"%.3f mA",cur);
-	sprintf(accrmulated,"%.0f %%",acr);
+	sprintf(percent,"%.0f %%",acr);
 	
 }
 void characters_init()
@@ -66,7 +91,7 @@ void characters_init()
 		volt[i] = '\0';
 		current[i] = '\0';
 		temperature[i] = '\0';
-		accrmulated[i] = '\0';
+		percent[i] = '\0';
 	}
 }
 
