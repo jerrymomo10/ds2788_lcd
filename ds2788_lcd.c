@@ -38,10 +38,10 @@ int main()
 		count--;
 		update();
 		DISPLAY(0,0,volt);
-		DISPLAY(0,10,current);
+		DISPLAY(0,8,current);
 		DISPLAY(1,0,temperature);
-		DISPLAY(1,10,accrmulated);
-		_delay_ms(100);
+		DISPLAY(1,8,accrmulated);
+		_delay_ms(400);
 	}
 
 }
