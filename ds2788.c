@@ -103,8 +103,8 @@ float ds_get_current(void)
 	ds_write_byte(CMD_ONEWIRE_READ);
 	ds_write_byte(CMD_ADDR_CURRENT);
 	uint16_t msb =ds_read_byte();
-	uint16_t lsb =ds_read_byte();
-	uint16_t t = (msb<<8)|lsb;
+	int16_t lsb =ds_read_byte();
+	int16_t t = (msb<<8)|lsb;
 	current=(float)(t*0.07813);
 	return(current);
 }
