@@ -16,14 +16,16 @@
 #include "ds2788.h"
 uchar mode = 0;
 uchar yes = 0;
+uchar pos_mode1 = 0;
+uchar pos_mode2 = 0;
 char volt[50];
 char current[50];
 char temperature[50];
 char percent[50];
-char fullc[50]="6899 mah";
-char nowc[50]="3423 mah";
+char fullc[50]="63899 Mah";
+char nowc[50]="34233 Mah";
 void characters_init();
-char res[50]="0000 OM";
+char res[50]="00000 OM";
 void update();
 void mode_pro();
 void switch_mode(char x);
@@ -47,13 +49,42 @@ int main()
 		key = get_key();
 		if(key==1)
 		{	
-			switch_mode(1);
-			mode = (mode+1)%3;
+			if(yes&&mode==1)
+			{
+				pos_mode1 = (pos_mode1+1)%5;
+			}
+			else if(yes&&mode==2)
+			{
+				pos_mode2 = (pos_mode2+1)%10;
+			}
+			else
+			{
+				switch_mode(1);
+				mode = (mode+1)%3;
+			}
 		}
 		if(key==3)
 		{
 			key = ~yes;
 			switch_mode(3);
+		}
+		if(key==2)
+		{
+			if(mode==1&&yes)
+			{
+				res[pos_mode1]=(res[pos_mode1]+1)%10;				
+			}
+			if(mode==2&&yes)
+			{
+				if(pos_mode2>=5)
+				{
+					fullc[pos_mode2%5] = (fullc[pos_mode2]+1)%10;			
+				}
+				else
+				{
+					nowc[pos_mode2%5] = (nowc[pos_mode2]+1)%10;				
+				}
+			}
 		}
 		//if(count==0){count=4;LCD_CLEAR();}
 		count--;
@@ -106,7 +137,12 @@ void mode_pro()
 	}
 	if(mode==1)
 	{
-
+		DISPLAY(0,0,res);
+	}
+	if(mode==2)
+	{
+		DISPLAY(0,0,fullc);
+		DISPLAY(0,0,nowc);
 	}
 	
 }
