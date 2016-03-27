@@ -3,7 +3,7 @@
  * lcd.h 是2002的显示LCD驱动
  * ds2788.h 是ds2788的读写驱动
  * Created: 2016/2/25 19:56:36
- *  Author: Administrator
+ *  Author: Jerry
  */ 
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -31,15 +31,17 @@ int main()
 	ds_write_byte(CMD_ADDR_ACR);
 	ds_write_byte(0X4b);
 	ds_write_byte(0X00);*/
+	int count = 5; 
 	while(1)
 	{
-		LCD_CLEAR();
+		if(count==0){count=4;LCD_CLEAR();}
+		count--;
 		update();
 		DISPLAY(0,0,volt);
 		DISPLAY(0,10,current);
 		DISPLAY(1,0,temperature);
 		DISPLAY(1,10,accrmulated);
-		_delay_ms(50);
+		_delay_ms(100);
 	}
 
 }
@@ -52,7 +54,7 @@ void update()
 	sprintf(temperature,"%.1f C",tem);
 	sprintf(volt,"%.3f V",vol);
 	sprintf(current,"%.3f mA",cur);
-	sprintf(accrmulated,"%.0f %",acr);
+	sprintf(accrmulated,"%.0f %%",acr);
 	
 }
 void characters_init()
