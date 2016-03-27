@@ -26,7 +26,7 @@ void characters_init();
 char res[50]="0000 OM";
 void update();
 void mode_pro();
-void switch_mode();
+void switch_mode(char x);
 int main()
 {
 	characters_init();
@@ -47,8 +47,13 @@ int main()
 		key = get_key();
 		if(key==1)
 		{	
-			switch_mode();
+			switch_mode(1);
 			mode = (mode+1)%3;
+		}
+		if(key==3)
+		{
+			key = ~yes;
+			switch_mode(3);
 		}
 		//if(count==0){count=4;LCD_CLEAR();}
 		count--;
@@ -58,28 +63,38 @@ int main()
 	}
 
 }
-void switch_mode()
+void switch_mode(char x)
 {
-	if(mode==0)
-	{	
-		LCD_CLEAR();
-		DISPLAY(0,0,res);
-		LCD_WR_COM(0x02);
-		LCD_WR_COM(0x0f);
+	if(x==1)
+	{
+		if(mode==0)
+		{	
+			LCD_CLEAR();
+			DISPLAY(0,0,res);
+			
+		}
+		if(mode==1)
+		{
+			LCD_CLEAR();
+			DISPLAY(0,0,fullc);
+			DISPLAY(1,0,nowc);
+			LCD_WR_COM(0X02);
+	 		LCD_WR_COM(0X0f);
+		 }
+    	if(mode==2)
+     	{
+	    	LCD_CLEAR();
+	    	LCD_WR_COM(0X0C);	
+    	}
 		
 	}
-	if(mode==1)
+	if(x==3)
 	{
-		LCD_CLEAR();
-		DISPLAY(0,0,fullc);
-		DISPLAY(1,0,nowc);
-		LCD_WR_COM(0X02);
-		LCD_WR_COM(0X0f);
-	}
-	if(mode==2)
-	{
-		LCD_CLEAR();
-		LCD_WR_COM(0X0C);	
+		if(mode!=1)
+		{
+			LCD_WR_COM(0x02);
+			LCD_WR_COM(0x0f);
+		}
 	}
 }
 void mode_pro()
