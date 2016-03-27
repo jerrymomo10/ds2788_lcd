@@ -20,10 +20,13 @@ char volt[50];
 char current[50];
 char temperature[50];
 char percent[50];
+char fullc[50]="6899 mah";
+char nowc[50]="3423 mah";
 void characters_init();
 char res[50]="0000 OM";
 void update();
 void mode_pro();
+void switch_mode();
 int main()
 {
 	characters_init();
@@ -42,7 +45,11 @@ int main()
 	while(1)
 	{
 		key = get_key();
-		if(key==1)mode=(mode+1)%3;
+		if(key==1)
+		{	
+			switch_mode();
+			mode = (mode+1)%3;
+		}
 		if(count==0){count=4;LCD_CLEAR();}
 		count--;
 		update();
@@ -50,6 +57,27 @@ int main()
 		_delay_ms(400);
 	}
 
+}
+void switch_mode()
+{
+	if(mode==0)
+	{
+		DISPLAY(0,0,res);
+		LCD_WR_COM(0x02);
+		LCD_WR_COM(0x0f);
+		
+	}
+	if(mode==1)
+	{
+		DISPLAY(0,0,fullc);
+		DISPLAY(1,0,nowc);
+		LCD_WR_COM(0X02);
+		LCD_WR_COM(0X0f);
+	}
+	if(mode==2)
+	{
+		LCD_WR_COM(0X0C);	
+	}
 }
 void mode_pro()
 {
@@ -62,9 +90,6 @@ void mode_pro()
 	}
 	if(mode==1)
 	{
-		DISPLAY(0,0,res);
-		LCD_WR_COM(0x02);
-		LCD_WR_COM(0x06);
 
 	}
 	
