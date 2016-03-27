@@ -88,7 +88,7 @@ void switch_mode(char x)
 	}
 	if(x==3)
 	{
-		if(mode!=1)
+		if(mode!=0)
 		{
 			LCD_WR_COM(0x02);
 			LCD_WR_COM(0x0f);
