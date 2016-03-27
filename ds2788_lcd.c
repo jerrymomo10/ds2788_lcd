@@ -39,7 +39,7 @@ int main()
 		DISPLAY(0,10,current);
 		DISPLAY(1,0,temperature);
 		DISPLAY(1,10,accrmulated);
-		_delay_ms(500);
+		_delay_ms(50);
 	}
 
 }
