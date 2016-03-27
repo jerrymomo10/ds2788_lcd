@@ -65,7 +65,7 @@ int main()
 		}
 		if(key==3)
 		{
-			key = ~yes;
+			yes = ~yes;
 			switch_mode(3);
 		}
 		if(key==2)
@@ -119,7 +119,7 @@ void switch_mode(char x)
 	}
 	if(x==3)
 	{
-		if(mode!=0)
+		if(mode!=0&&yes)
 		{
 			LCD_WR_COM(0x02);
 			LCD_WR_COM(0x0f);
