@@ -50,18 +50,19 @@ int main()
 			switch_mode();
 			mode = (mode+1)%3;
 		}
-		if(count==0){count=4;LCD_CLEAR();}
+		//if(count==0){count=4;LCD_CLEAR();}
 		count--;
 		update();
 		mode_pro();
-		_delay_ms(400);
+		_delay_ms(50);
 	}
 
 }
 void switch_mode()
 {
 	if(mode==0)
-	{
+	{	
+		LCD_CLEAR();
 		DISPLAY(0,0,res);
 		LCD_WR_COM(0x02);
 		LCD_WR_COM(0x0f);
@@ -69,6 +70,7 @@ void switch_mode()
 	}
 	if(mode==1)
 	{
+		LCD_CLEAR();
 		DISPLAY(0,0,fullc);
 		DISPLAY(1,0,nowc);
 		LCD_WR_COM(0X02);
