@@ -42,7 +42,7 @@ int main()
 	while(1)
 	{
 		key = get_key();
-		if(key==1)mode%=3;
+		if(key==1)mode=(mode+1)%3;
 		if(count==0){count=4;LCD_CLEAR();}
 		count--;
 		update();
