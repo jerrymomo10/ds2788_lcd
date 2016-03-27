@@ -52,7 +52,7 @@ void update()
 	sprintf(temperature,"%.1f C",tem);
 	sprintf(volt,"%.3f V",vol);
 	sprintf(current,"%.3f mA",cur);
-	sprintf(accrmulated,"%.1f",acr);
+	sprintf(accrmulated,"%.0f %",acr);
 	
 }
 void characters_init()
