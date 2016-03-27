@@ -78,6 +78,7 @@ void switch_mode()
 	}
 	if(mode==2)
 	{
+		LCD_CLEAR();
 		LCD_WR_COM(0X0C);	
 	}
 }
