@@ -49,100 +49,10 @@ void update()
 	float vol = ds_get_volt();
 	float cur = ds_get_current();
 	float acr = ds_get_acr();
-	sprintf(temperature,"%.1f",tem);
-	int i;
-	
-	/*volt dis 0.00-99.99*/
-	int volt_sign = vol>=0? 1:0;
-	if(volt_sign==0){vol = -vol;}
-	uchar v_10 = (uchar)((int)vol/10%10);
-	uchar v_0 = (uchar)((int)vol%10);
-	uchar v_1 = (uchar)((int)(vol*10)%10);
-	uchar v_01 = (uchar)((int)(vol*100)%10);
-	uchar v_001 = (uchar)((int)((vol-v_10*10))%10);
-	i=0;
-	if(volt_sign==0){volt[i]='-';i++;}
-	if(v_10!=0)
-	{
-		volt[i++] = v_10+'0';
-		volt[i++] = v_0+'0';
-		volt[i++] = '.';
-		volt[i++] = v_1+'0';
-		volt[i++] = v_01+'0';
-		volt[i++] = v_001+'0';
-		volt[i++] = ' ';
-		volt[i++] = 'V';
-		volt[i++] = 0;
-	}
-	else
-	{
-		volt[i++] = v_0+'0';
-		volt[i++] = '.';
-		volt[i++] = v_1+'0';
-		volt[i++] = v_01+'0';
-		volt[i++] = v_001+'0';
-		volt[i++] = ' ';
-		volt[i++] = 'V';
-		volt[i++] = 0;
-	}
-	/*current dis 0.00-99.99*/
-	int cur_sign = cur>=0? 1:0;
-	if(cur_sign==0){cur = -cur;}
-	uchar c_100 = (uchar)((int)cur/100%10);if(c_100<0||c_100>9){c_100=0;}
-	uchar c_10 = (uchar)((int)cur/10%10);if(c_10<0||c_10>9){c_10=0;}
-	uchar c_0 = (uchar)((int)cur%10);if(c_0<0||c_0>9){c_0=0;}
-	uchar c_1 = (uchar)(((int)(cur*10))%10);if(c_1<0||c_1>9){c_1=0;}
-	uchar c_01 = (uchar)(((int)(cur*100))%10);if(c_01<0||c_01>9){c_01=0;}
-	uchar c_001 = (uchar)(((int)((cur-c_10*10))*1000)%10);if(c_001<0||c_001>9){c_001=0;}
-	i=0;
-	if(cur_sign==0){current[i]='-';i++;}
-	if(c_100!=0)
-	{
-		current[i++] = c_100+'0';	
-		current[i++] = c_10+'0';
-		current[i++] = c_0+'0';
-		current[i++] = '.';
-		current[i++] = c_1+'0';
-		current[i++] = c_01+'0';
-		current[i++] = c_001+'0';
-		current[i++] = ' ';
-		current[i++] = 'm';
-		current[i++] = 'A';
-		current[i++] = 0;
-	}
-	else if(c_10!=0)
-	{
-		current[i++] = c_10+'0';
-		current[i++] = c_0+'0';
-		current[i++] = '.';
-		current[i++] = c_1+'0';
-		current[i++] = c_01+'0';
-		current[i++] = c_001+'0';
-		current[i++] = ' ';
-		current[i++] = 'm';
-		current[i++] = 'A';
-		current[i++] = 0;
-	}
-	else
-	{
-		current[i++] = c_0+'0';
-		current[i++] = '.';
-		current[i++] = c_1+'0';
-		current[i++] = c_01+'0';
-		current[i++] = c_001+'0';
-		current[i++] = ' ';
-		current[i++] = 'm';
-		current[i++] = 'A';
-		current[i++] = 0;
-	}
-
-	uchar a_10 = (uchar)((int)(acr/10)%10);
-	uchar a_1 = (uchar)((int)acr%10);
-	i=0;
-	accrmulated[i++] = a_10+'0';
-	accrmulated[i++] = a_1+'0';
-	accrmulated[i++] = 0x25;
-	accrmulated[i++] = 0;
+	sprintf(temperature,"%.1f C",tem);
+	sprintf(volt,"%.3f V",vol);
+	sprintf(current,"%.3f mA",cur);
+	sprintf(accrmulated,"%.1f",acr);
 	
 }
 void characters_init()
