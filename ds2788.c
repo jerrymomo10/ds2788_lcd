@@ -116,9 +116,7 @@ float ds_get_acr(void)
 	ds_write_byte(CMD_ONEWIRE_SKIP_ROM);
 	ds_write_byte(CMD_ONEWIRE_READ);
 	ds_write_byte(CMD_ADDR_ACR);
-	uint16_t msb =ds_read_byte();
-	uint16_t lsb =ds_read_byte();
-	uint16_t t = (msb<<8)|lsb;
-	acr=(float)(t*0.3125);
+	uint8_t msb =ds_read_byte();
+	acr=(float)(msb);
 	return(acr);
 }

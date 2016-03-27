@@ -10,12 +10,13 @@
 #include <util/delay.h>
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "lcd.h"
 #include "ds2788.h"
-uchar* volt;
-uchar* current;
-uchar *temperature;
-uchar *accrmulated;
+char volt[50];
+char current[50];
+char temperature[50];
+char accrmulated[50];
 void characters_init();
 void update();
 int main()
@@ -32,6 +33,7 @@ int main()
 	ds_write_byte(0X00);*/
 	while(1)
 	{
+		LCD_CLEAR();
 		update();
 		DISPLAY(0,0,volt);
 		DISPLAY(0,10,current);
@@ -47,39 +49,9 @@ void update()
 	float vol = ds_get_volt();
 	float cur = ds_get_current();
 	float acr = ds_get_acr();
-	/* tem 0.001-99.999*/
-	int tem_sign = tem>=0? 1:0;
-	if(tem_sign==0){tem = -tem;}
-	uchar t_10 = (uchar)((int)tem/10%10);
-	uchar t_0 = (uchar)((int)tem%10);
-	uchar t_1 = (uchar)((int)(tem*10)%10);
-	uchar t_01 = (uchar)((int)(tem*100)%10);
-	uchar t_001 = (uchar)((int)((tem-t_10*10)*1000)%10);
-	int i=0;
-	if(tem_sign==0){temperature[i]='-';i++;}
-	if(t_10!=0)
-	{
-		temperature[i++] = t_10+'0';
-		temperature[i++] = t_0+'0';
-		temperature[i++] = '.';
-		temperature[i++] = t_1+'0';
-		temperature[i++] = t_01+'0';
-		temperature[i++] = t_001+'0';
-		temperature[i++] = ' ';
-		temperature[i++] = 'C';
-		temperature[i++] = 0;
-	}
-	else
-	{
-		temperature[i++] = t_0+'0';
-		temperature[i++] = '.';
-		temperature[i++] = t_1+'0';
-		temperature[i++] = t_01+'0';
-		temperature[i++] = t_001+'0';
-		temperature[i++] = ' ';
-		temperature[i++] = 'C';
-		temperature[i++] = 0;
-	}
+	sprintf(temperature,"%.1f",tem);
+	int i;
+	
 	/*volt dis 0.00-99.99*/
 	int volt_sign = vol>=0? 1:0;
 	if(volt_sign==0){vol = -vol;}
@@ -116,14 +88,29 @@ void update()
 	/*current dis 0.00-99.99*/
 	int cur_sign = cur>=0? 1:0;
 	if(cur_sign==0){cur = -cur;}
-	uchar c_10 = (uchar)((int)cur/10%10);
-	uchar c_0 = (uchar)((int)cur%10);
-	uchar c_1 = (uchar)((int)(cur*10)%10);
-	uchar c_01 = (uchar)((int)(cur*100)%10);
-	uchar c_001 = (uchar)((int)((cur-c_10*10)*1000)%10);
+	uchar c_100 = (uchar)((int)cur/100%10);if(c_100<0||c_100>9){c_100=0;}
+	uchar c_10 = (uchar)((int)cur/10%10);if(c_10<0||c_10>9){c_10=0;}
+	uchar c_0 = (uchar)((int)cur%10);if(c_0<0||c_0>9){c_0=0;}
+	uchar c_1 = (uchar)(((int)(cur*10))%10);if(c_1<0||c_1>9){c_1=0;}
+	uchar c_01 = (uchar)(((int)(cur*100))%10);if(c_01<0||c_01>9){c_01=0;}
+	uchar c_001 = (uchar)(((int)((cur-c_10*10))*1000)%10);if(c_001<0||c_001>9){c_001=0;}
 	i=0;
 	if(cur_sign==0){current[i]='-';i++;}
-	if(c_10!=0)
+	if(c_100!=0)
+	{
+		current[i++] = c_100+'0';	
+		current[i++] = c_10+'0';
+		current[i++] = c_0+'0';
+		current[i++] = '.';
+		current[i++] = c_1+'0';
+		current[i++] = c_01+'0';
+		current[i++] = c_001+'0';
+		current[i++] = ' ';
+		current[i++] = 'm';
+		current[i++] = 'A';
+		current[i++] = 0;
+	}
+	else if(c_10!=0)
 	{
 		current[i++] = c_10+'0';
 		current[i++] = c_0+'0';
@@ -132,7 +119,7 @@ void update()
 		current[i++] = c_01+'0';
 		current[i++] = c_001+'0';
 		current[i++] = ' ';
-		current[i++] = 'M';
+		current[i++] = 'm';
 		current[i++] = 'A';
 		current[i++] = 0;
 	}
@@ -144,34 +131,30 @@ void update()
 		current[i++] = c_01+'0';
 		current[i++] = c_001+'0';
 		current[i++] = ' ';
-		current[i++] = 'M';
+		current[i++] = 'm';
 		current[i++] = 'A';
 		current[i++] = 0;
 	}
-	/*acr dis 0000-99999*/
-	uchar a_10000 = (uchar)((int)acr/10000%10);
-	uchar a_1000 = (uchar)((int)acr/1000%10);
-	uchar a_100 = (uchar)((int)(acr/100)%10);
+
 	uchar a_10 = (uchar)((int)(acr/10)%10);
 	uchar a_1 = (uchar)((int)acr%10);
 	i=0;
-	if(a_10000!=0){accrmulated[i++]=a_10000+'0';};
-	accrmulated[i++] = a_1000+'0';
-	accrmulated[i++] = a_100+'0';
 	accrmulated[i++] = a_10+'0';
 	accrmulated[i++] = a_1+'0';
-	accrmulated[i++] = ' ';
-	accrmulated[i++] = 'M';
-	accrmulated[i++] = 'A';
-	accrmulated[i++] = 'H';
+	accrmulated[i++] = 0x25;
 	accrmulated[i++] = 0;
 	
 }
 void characters_init()
 {
-	volt = malloc(sizeof(uchar)*10);
-	current = malloc(sizeof(uchar)*10);
-	temperature = malloc(sizeof(uchar)*10);
-	accrmulated = malloc(sizeof(uchar)*10);
+	int size = 50;
+	int i;
+	for(i=0;i<size;i++)
+	{
+		volt[i] = '\0';
+		current[i] = '\0';
+		temperature[i] = '\0';
+		accrmulated[i] = '\0';
+	}
 }
 

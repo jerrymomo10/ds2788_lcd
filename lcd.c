@@ -65,7 +65,7 @@ void PORT_INIT()
 	LCD_EN_0;
 	LCD_WR_0;
 }
-void DISPLAY(uchar x,uchar y,uchar *data)
+void DISPLAY(uchar x,uchar y,char *data)
 {
 	x==0?LCD_WR_COM(0x80+y):LCD_WR_COM(0xc0+y);
 	while(*data)
@@ -73,4 +73,8 @@ void DISPLAY(uchar x,uchar y,uchar *data)
  		LCD_WR_DATA(*data);
 		data++;
 	}
+}
+void LCD_CLEAR(void)
+{
+	LCD_WR_COM(0x01);
 }

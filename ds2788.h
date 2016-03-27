@@ -20,7 +20,7 @@
 #define CMD_ADDR_TEMP 0x0A
 #define CMD_ADDR_VOLT 0x0C
 #define CMD_ADDR_CURRENT 0x0E
-#define CMD_ADDR_ACR 0x10
+#define CMD_ADDR_ACR 0x06
 
 #define uchar unsigned char 
 #define uint unsigned int  

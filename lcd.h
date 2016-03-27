@@ -24,7 +24,7 @@ void LCD_WR_COM(uchar com);
 void LCD_WR_DATA(uchar data);
 void PORT_INIT();
 void LCD_INIT();
-void DISPLAY(uchar x,uchar y,uchar *data);
-
+void DISPLAY(uchar x,uchar y,char *data);
+void LCD_CLEAR(void);
 #endif
 
