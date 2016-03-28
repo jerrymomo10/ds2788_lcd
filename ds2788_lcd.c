@@ -47,19 +47,34 @@ int main()
 	while(1)
 	{
 		key = get_key();
+		//switch mode and in edit edit.
 		if(key==1)
 		{	
+			//in mode 1 go to next cursor 
 			if(yes&&mode==1)
 			{		
+				//go back to the begining of the line
 				if(pos_mode1==4){LCD_WR_COM(0X02);}
 				else
 				{
+					//cursor to the next
 					LCD_WR_COM(0X14);
 				}
+				//the position of mode1 add
 				pos_mode1 = (pos_mode1+1)%5;
 			}
 			else if(yes&&mode==2)
 			{
+				if(pos_mode2==10){LCD_WR_COM(0X02);}
+				else
+				{
+					if(pos_mode2<5)LCD_WR_COM(0x14);
+					else 
+					{
+						LCD_WR_COM(0XC0);
+						LCD_WR_DATA('0');
+					}
+				}
 				pos_mode2 = (pos_mode2+1)%10;
 			}
 			else
@@ -86,11 +101,17 @@ int main()
 			{
 				if(pos_mode2>=5)
 				{
-					fullc[pos_mode2%5] = (fullc[pos_mode2]+1)%10;			
+					fullc[pos_mode2%5] = (fullc[pos_mode2%5]+1-'0')%10+'0';
+					LCD_WR_COM(0x80+pos_mode2%5);
+					LCD_WR_DATA(fullc[pos_mode2%5]);
+					LCD_WR_COM(0X10);
 				}
 				else
 				{
-					nowc[pos_mode2%5] = (nowc[pos_mode2]+1)%10;				
+					nowc[pos_mode2] = (nowc[pos_mode2]+1-'0')%10;	
+					LCD_WR_COM(0xc0+pos_mode2);
+					LCD_WR_DATA(nowc[pos_mode2]);
+					LCD_WR_COM(0X10);
 				}
 			}
 		}
