@@ -72,7 +72,9 @@ int main()
 		{
 			if(mode==1&&yes)
 			{
-				res[pos_mode1]=(res[pos_mode1]+1)%10;				
+				res[pos_mode1]=(res[pos_mode1]+1-'0')%10+'0';
+				LCD_WR_DATA(res[pos_mode1]);
+				pos_mode1++;
 			}
 			if(mode==2&&yes)
 			{
@@ -137,12 +139,12 @@ void mode_pro()
 	}
 	if(mode==1)
 	{
-		DISPLAY(0,0,res);
+		//DISPLAY(0,0,res);
 	}
 	if(mode==2)
 	{
-		DISPLAY(0,0,fullc);
-		DISPLAY(0,0,nowc);
+		//DISPLAY(0,0,fullc);
+		//DISPLAY(0,0,nowc);
 	}
 	
 }
