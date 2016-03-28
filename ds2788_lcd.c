@@ -52,7 +52,7 @@ int main()
 			if(yes&&mode==1)
 			{
 				pos_mode1 = (pos_mode1+1)%5;
-				LCD_WR_DATA(res[pos_mode1]);
+				LCD_WR_COM(0X14);
 			}
 			else if(yes&&mode==2)
 			{
@@ -74,6 +74,7 @@ int main()
 			if(mode==1&&yes)
 			{
 				res[pos_mode1]=(res[pos_mode1]+1-'0')%10+'0';
+				LCD_WR_COM(0X80+pos_mode1);
 				LCD_WR_DATA(res[pos_mode1]);
 			}
 			if(mode==2&&yes)
