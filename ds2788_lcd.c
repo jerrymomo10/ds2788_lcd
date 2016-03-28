@@ -80,6 +80,7 @@ int main()
 				res[pos_mode1]=(res[pos_mode1]+1-'0')%10+'0';
 				LCD_WR_COM(0X80+pos_mode1);
 				LCD_WR_DATA(res[pos_mode1]);
+				LCD_WR_COM(0X10);
 			}
 			if(mode==2&&yes)
 			{
