@@ -12,7 +12,7 @@ char get_key()
 	isPressed = (KEY_PIN&0x03);
 	if(isPressed!=0x03)
 	{
-		_delay_us(50);			
+		_delay_us(100);			
 		if(isPressed==0x02)return 2;
 		if(isPressed==0x00)return 3;
 		if(isPressed==0x01)return 1;

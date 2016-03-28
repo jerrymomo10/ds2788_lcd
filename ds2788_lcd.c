@@ -50,9 +50,13 @@ int main()
 		if(key==1)
 		{	
 			if(yes&&mode==1)
-			{
+			{		
+				if(pos_mode1==4){LCD_WR_COM(0X02);}
+				else
+				{
+					LCD_WR_COM(0X14);
+				}
 				pos_mode1 = (pos_mode1+1)%5;
-				LCD_WR_COM(0X14);
 			}
 			else if(yes&&mode==2)
 			{
