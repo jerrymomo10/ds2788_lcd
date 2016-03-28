@@ -127,11 +127,18 @@ void switch_mode(char x)
 	}
 	if(x==3)
 	{
+		//in mode 1 2 and entry the edit.
 		if(mode!=0&&yes)
 		{
 			LCD_WR_COM(0x02);
 			LCD_WR_COM(0x0f);
 		}
+		//in mode 1 2 and exit the edit.
+		if(mode!=0&&!yes)
+		{
+			LCD_WR_COM(0X0C);
+		}
+
 	}
 }
 void mode_pro()
