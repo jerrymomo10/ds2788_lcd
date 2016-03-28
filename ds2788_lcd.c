@@ -75,6 +75,7 @@ int main()
 				res[pos_mode1]=(res[pos_mode1]+1-'0')%10+'0';
 				LCD_WR_DATA(res[pos_mode1]);
 				pos_mode1++;
+				_delay_ms(100);
 			}
 			if(mode==2&&yes)
 			{
