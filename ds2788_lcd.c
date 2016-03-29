@@ -118,8 +118,15 @@ int main()
 				}
 			}
 		}
-		if(count==0&&mode==0){count=4;LCD_CLEAR();}
-		count--;
+		if(mode==0)
+		{
+			if(count==0)
+			{
+				count=4;
+				LCD_CLEAR();
+			}
+			count--;
+		}
 		update();
 		mode_pro();
 		_delay_ms(50);
