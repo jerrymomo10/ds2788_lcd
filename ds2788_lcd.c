@@ -118,7 +118,7 @@ int main()
 				}
 			}
 		}
-		//if(count==0){count=4;LCD_CLEAR();}
+		if(count==0&&mode==0){count=4;LCD_CLEAR();}
 		count--;
 		update();
 		mode_pro();
