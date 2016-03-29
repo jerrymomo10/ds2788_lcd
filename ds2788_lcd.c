@@ -65,16 +65,15 @@ int main()
 			}
 			else if(yes&&mode==2)
 			{
-				//go
-				if(pos_mode2==10){LCD_WR_COM(0X02);}
+				//go to the begining of the first line
+				if(pos_mode2==9){LCD_WR_COM(0X02);}
 				else
 				{
-					if(pos_mode2<5)LCD_WR_COM(0x14);
-					else 
+					if(pos_mode2==5)
 					{
-						LCD_WR_COM(0XC0);
-						LCD_WR_DATA('0');
+						LCD_WR_COM(0XC0);	
 					}
+					LCD_WR_COM(0x14);
 				}
 				pos_mode2 = (pos_mode2+1)%10;
 			}
