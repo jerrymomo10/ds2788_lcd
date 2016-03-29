@@ -73,7 +73,10 @@ int main()
 					{
 						LCD_WR_COM(0XC0);	
 					}
-					LCD_WR_COM(0x14);
+					else
+					{
+						LCD_WR_COM(0x14);
+					}
 				}
 				pos_mode2 = (pos_mode2+1)%10;
 			}
