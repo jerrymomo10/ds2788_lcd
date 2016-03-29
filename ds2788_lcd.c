@@ -65,6 +65,7 @@ int main()
 			}
 			else if(yes&&mode==2)
 			{
+				//go
 				if(pos_mode2==10){LCD_WR_COM(0X02);}
 				else
 				{
@@ -102,14 +103,14 @@ int main()
 				if(pos_mode2>=5)
 				{
 					fullc[pos_mode2%5] = (fullc[pos_mode2%5]+1-'0')%10+'0';
-					LCD_WR_COM(0x80+pos_mode2%5);
+					LCD_WR_COM(0xc0+pos_mode2%5);
 					LCD_WR_DATA(fullc[pos_mode2%5]);
 					LCD_WR_COM(0X10);
 				}
 				else
 				{
-					nowc[pos_mode2] = (nowc[pos_mode2]+1-'0')%10;	
-					LCD_WR_COM(0xc0+pos_mode2);
+					nowc[pos_mode2] = (nowc[pos_mode2]+1-'0')%10+'0';	
+					LCD_WR_COM(0x80+pos_mode2);
 					LCD_WR_DATA(nowc[pos_mode2]);
 					LCD_WR_COM(0X10);
 				}
@@ -151,7 +152,9 @@ void switch_mode(char x)
 		//in mode 1 2 and entry the edit.
 		if(mode!=0&&yes)
 		{
+			//cursor to the up left
 			LCD_WR_COM(0x02);
+			//flicker the cursor and the letter
 			LCD_WR_COM(0x0f);
 		}
 		//in mode 1 2 and exit the edit.
