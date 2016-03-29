@@ -69,7 +69,7 @@ int main()
 				if(pos_mode2==9){LCD_WR_COM(0X02);}
 				else
 				{
-					if(pos_mode2==5)
+					if(pos_mode2==4)
 					{
 						LCD_WR_COM(0XC0);	
 					}
