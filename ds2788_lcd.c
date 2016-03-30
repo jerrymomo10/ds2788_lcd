@@ -22,7 +22,7 @@ char volt[50];
 char current[50];
 char temperature[50];
 char percent[50];
-char fullc[50]="06000 mAh";
+char fullc[50]="06000 mAh F";
 char nowc[50];
 void characters_init();
 char res[50]="00033 Om";
@@ -101,7 +101,7 @@ int main()
 			{
 				fullc[pos_mode2] = (fullc[pos_mode2]+1-'0')%10+'0';	
 				LCD_WR_COM(0x80+pos_mode2);
-				LCD_WR_DATA(nowc[pos_mode2]);
+				LCD_WR_DATA(fullc[pos_mode2]);
 				LCD_WR_COM(0X10);
 			}
 		}
@@ -142,7 +142,7 @@ void switch_mode(char x)
 			float acr = ds_get_acr();
 			fullc_int = atoi(fullc);
 			nowc_int = (int)(acr*fullc_int/100);
-			sprintf(nowc,"%05d mAh",nowc_int);
+			sprintf(nowc,"%05d mAh C",nowc_int);
 			DISPLAY(1,0,nowc);
 		 }
     	if(mode==2)
