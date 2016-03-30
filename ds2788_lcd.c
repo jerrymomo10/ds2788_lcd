@@ -25,7 +25,7 @@ char percent[50];
 char fullc[50]="6000 mAh";
 char nowc[50];
 void characters_init();
-char res[50];
+char res[50]="00033 Om";
 void update();
 void mode_pro();
 void switch_mode(char x);
