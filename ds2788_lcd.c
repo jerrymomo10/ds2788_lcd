@@ -25,11 +25,11 @@ char percent[50];
 char fullc[50]="6000 mAh";
 char nowc[50];
 void characters_init();
-char res[50]="00033 Om";
+char res[50];
 void update();
 void mode_pro();
 void switch_mode(char x);
-int res_int;//om
+int res_int = 33;//om
 int fullc_int;//fullc
 int nowc_int;//nowc
 int main()
@@ -69,19 +69,12 @@ int main()
 			else if(yes&&mode==2)
 			{
 				//go to the begining of the first line
-				if(pos_mode2==9){LCD_WR_COM(0X02);}
+				if(pos_mode2==4){LCD_WR_COM(0X02);}
 				else
 				{
-					if(pos_mode2==4)
-					{
-						LCD_WR_COM(0XC0);	
-					}
-					else
-					{
 						LCD_WR_COM(0x14);
-					}
 				}
-				pos_mode2 = (pos_mode2+1)%10;
+				pos_mode2 = (pos_mode2+1)%5;
 			}
 			else
 			{
@@ -106,20 +99,10 @@ int main()
 			}
 			if(mode==2&&yes)
 			{
-				if(pos_mode2>=5)
-				{
-					fullc[pos_mode2%5] = (fullc[pos_mode2%5]+1-'0')%10+'0';
-					LCD_WR_COM(0xc0+pos_mode2%5);
-					LCD_WR_DATA(fullc[pos_mode2%5]);
-					LCD_WR_COM(0X10);
-				}
-				else
-				{
-					nowc[pos_mode2] = (nowc[pos_mode2]+1-'0')%10+'0';	
-					LCD_WR_COM(0x80+pos_mode2);
-					LCD_WR_DATA(nowc[pos_mode2]);
-					LCD_WR_COM(0X10);
-				}
+				fullc[pos_mode2] = (fullc[pos_mode2]+1-'0')%10+'0';	
+				LCD_WR_COM(0x80+pos_mode2);
+				LCD_WR_DATA(nowc[pos_mode2]);
+				LCD_WR_COM(0X10);
 			}
 		}
 		if(mode==0)
@@ -142,13 +125,15 @@ void switch_mode(char x)
 	if(x==1)
 	{
 		if(mode==0)
-		{	
+		{
+			pos_mode1=0;
 			LCD_CLEAR();	
-			sprintf(res,"%d Om",res_int);
+			sprintf(res,"%05d Om",res_int);
 			DISPLAY(0,0,res);
 		}
 		if(mode==1)
 		{
+			pos_mode2=0;
 			LCD_CLEAR();
 			DISPLAY(0,0,fullc);
 			float acr = ds_get_acr();
