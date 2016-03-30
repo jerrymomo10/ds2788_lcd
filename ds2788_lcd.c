@@ -22,7 +22,7 @@ char volt[50];
 char current[50];
 char temperature[50];
 char percent[50];
-char fullc[50]="6000 mAh";
+char fullc[50]="06000 mAh";
 char nowc[50];
 void characters_init();
 char res[50]="00033 Om";
