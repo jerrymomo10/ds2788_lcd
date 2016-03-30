@@ -139,6 +139,10 @@ void switch_mode(char x)
 			sprintf(fullc,"%d mAh",fullc_int);
 			nowc_int = (int)(acr*fullc_int);
 			sprintf(nowc,"%d mAh",nowc_int);*/
+			float acr = ds_get_acr();
+			fullc_int = atoi(fullc);
+			nowc_int = (int)(acr*fullc_int/100);
+			sprintf(nowc,"%05d mAh",nowc_int);
 			DISPLAY(1,0,nowc);
 		 }
     	if(mode==2)
@@ -218,5 +222,7 @@ void characters_init()
 		temperature[i] = '\0';
 		percent[i] = '\0';
 	}
+
+
 }
 
