@@ -84,8 +84,8 @@ int main()
 		}
 		if(key==3)
 		{
-			switch_mode(3);
 			yes = ~yes;
+			switch_mode(3);
 		}
 		if(key==2)
 		{
@@ -128,15 +128,6 @@ void switch_mode(char x)
 		{
 			pos_mode1=0;
 			LCD_CLEAR();
-			//exit edit
-			if(yes)
-			{
-				res_int = atoi(res);
-			}
-			else
-			{
-				sprintf(res,"%05d Om",res_int);
-			}
 			DISPLAY(0,0,res);
 		}
 		if(mode==1)
@@ -144,10 +135,10 @@ void switch_mode(char x)
 			pos_mode2=0;
 			LCD_CLEAR();
 			DISPLAY(0,0,fullc);
-			float acr = ds_get_acr();
+		/*	float acr = ds_get_acr();
 			sprintf(fullc,"%d mAh",fullc_int);
 			nowc_int = (int)(acr*fullc_int);
-			sprintf(nowc,"%d mAh",nowc_int);
+			sprintf(nowc,"%d mAh",nowc_int);*/
 			DISPLAY(1,0,nowc);
 		 }
     	if(mode==2)
@@ -166,11 +157,27 @@ void switch_mode(char x)
 			LCD_WR_COM(0x02);
 			//flicker the cursor and the letter
 			LCD_WR_COM(0x0f);
+			if(mode==1)
+			{
+				sprintf(res,"%05d Om",res_int);
+			}
+			else
+			{
+				
+			}
 		}
 		//in mode 1 2 and exit the edit.
 		if(mode!=0&&!yes)
 		{
 			LCD_WR_COM(0X0C);
+			if(mode==1)
+			{
+				res_int = atoi(res);
+			}
+			else
+			{
+				fullc_int = atoi(fullc);
+			}
 		}
 
 	}
