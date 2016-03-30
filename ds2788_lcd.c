@@ -157,27 +157,27 @@ void switch_mode(char x)
 			LCD_WR_COM(0x02);
 			//flicker the cursor and the letter
 			LCD_WR_COM(0x0f);
-			if(mode==1)
+		/*	if(mode==1)
 			{
 				sprintf(res,"%05d Om",res_int);
 			}
 			else
 			{
 				
-			}
+			}*/
 		}
 		//in mode 1 2 and exit the edit.
 		if(mode!=0&&!yes)
 		{
 			LCD_WR_COM(0X0C);
-			if(mode==1)
+	/*		if(mode==1)
 			{
 				res_int = atoi(res);
 			}
 			else
 			{
 				fullc_int = atoi(fullc);
-			}
+			}*/
 		}
 
 	}
