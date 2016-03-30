@@ -84,8 +84,8 @@ int main()
 		}
 		if(key==3)
 		{
-			yes = ~yes;
 			switch_mode(3);
+			yes = ~yes;
 		}
 		if(key==2)
 		{
@@ -127,8 +127,16 @@ void switch_mode(char x)
 		if(mode==0)
 		{
 			pos_mode1=0;
-			LCD_CLEAR();	
-			sprintf(res,"%05d Om",res_int);
+			LCD_CLEAR();
+			//exit edit
+			if(yes)
+			{
+				res_int = atoi(res);
+			}
+			else
+			{
+				sprintf(res,"%05d Om",res_int);
+			}
 			DISPLAY(0,0,res);
 		}
 		if(mode==1)
