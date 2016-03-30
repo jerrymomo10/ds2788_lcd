@@ -22,13 +22,16 @@ char volt[50];
 char current[50];
 char temperature[50];
 char percent[50];
-char fullc[50]="63899 mAh";
-char nowc[50]="34233 mAh";
+char fullc[50]="6000 mAh";
+char nowc[50];
 void characters_init();
-char res[50]="00000 OM";
+char res[50]="00033 Om";
 void update();
 void mode_pro();
 void switch_mode(char x);
+int res_int;//om
+int fullc_int;//fullc
+int nowc_int;//nowc
 int main()
 {
 	characters_init();
@@ -99,6 +102,7 @@ int main()
 				LCD_WR_COM(0X80+pos_mode1);
 				LCD_WR_DATA(res[pos_mode1]);
 				LCD_WR_COM(0X10);
+				
 			}
 			if(mode==2&&yes)
 			{
@@ -139,14 +143,18 @@ void switch_mode(char x)
 	{
 		if(mode==0)
 		{	
-			LCD_CLEAR();
+			LCD_CLEAR();	
+			sprintf(res,"%d Om",res_int);
 			DISPLAY(0,0,res);
-			
 		}
 		if(mode==1)
 		{
 			LCD_CLEAR();
 			DISPLAY(0,0,fullc);
+			float acr = ds_get_acr();
+			sprintf(fullc,"%d mAh",fullc_int);
+			nowc_int = (int)(acr*fullc_int);
+			sprintf(nowc,"%d mAh",nowc_int);
 			DISPLAY(1,0,nowc);
 		 }
     	if(mode==2)

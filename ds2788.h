@@ -25,6 +25,7 @@
 #define uchar unsigned char 
 #define uint unsigned int  
 float ds_get_temperature(void);
+
 float ds_get_volt(void);
 float ds_get_current(void);
 float ds_get_acr(void);
